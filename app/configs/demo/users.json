@@ -1,0 +1,17 @@
+{
+    "0000000000": {
+        "id": "0000000000",
+        "roles": [
+            "user",
+            "devupdate",
+            "manage",
+            "video_view",
+            "video_manage"
+        ],
+        "params": {
+            "first_name": "User First Name",
+            "username": ""
+        },
+        "lang": "ru",
+    }
+}

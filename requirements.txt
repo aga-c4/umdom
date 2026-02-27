@@ -1,0 +1,5 @@
+git+https://github.com/aga-c4/agaunibot
+async-timeout==5.0.1
+paho-mqtt==2.1.0
+redis==5.2.1
+
