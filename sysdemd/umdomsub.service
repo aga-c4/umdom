@@ -1,11 +1,11 @@
 [Unit]
-Description=dembot
+Description=umdombot
 After=network.target
 
 [Service]
 Type=simple
 Restart=always
-ExecStart=/home/aga-c4/unibot/bots/demo/bot.sh demo start --custom demo
+ExecStart=/home/aga-c4/umdom/mqttsubscr.sh
 
 [Install]
 WantedBy=default.target

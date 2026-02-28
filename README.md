@@ -84,25 +84,22 @@ Telegram bot API - разбор документации с примерами
 https://infostart.ru/1c/articles/1217332/
 
 
-Делаем сервис для бота и автозапуск 
+Делаем сервисы для бота и автозапуск 
 Под рутом:
-1. Добавляем
----[ cd /etc/systemd/system/umdombot.service ]---
-[Unit]
-Description=umdombot
-After=network.target
-
-[Service]
-Type=simple
-Restart=always
-ExecStart=/home/aga-c4/umdom/bot.sh start
-
-[Install]
-WantedBy=default.target
-
-2. chmod 755 /etc/systemd/system/umdombot.service
-3. systemctl daemon-reload
-4. systemctl start umdombot
-5. systemctl status umdombot
-6. systemctl enable umdombot  (включить сервис)
-6. systemctl disable umdombot  (выключить сервис)
+1. Добавляем в /etc/systemd/system/umdombot.service
+сервисы бота, брокера, монитора из папки systemd
+2. Устанавливаем права для запуска 
+```
+chmod 755 /etc/systemd/system/umdombot.service
+```
+3. Рестартим демон
+```
+systemctl daemon-reload
+```
+4. Включаем и активируем автозагрузку сервисов по схеме
+```
+systemctl start umdombot
+systemctl status umdombot
+systemctl enable umdombot  (включить сервис)
+systemctl disable umdombot  (выключить сервис)
+```

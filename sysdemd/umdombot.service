@@ -1,0 +1,11 @@
+[Unit]
+Description=umdombot
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/home/aga-c4/umdom/bot.sh start --custom demo
+
+[Install]
+WantedBy=default.target
