@@ -4,14 +4,12 @@
 # pip3 install telebot, requests
 
 # Рутовая папка - корень проекта, мы находимся в папке бота умного дома
-import os
-import sys
-path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
-if not path in sys.path:
-    sys.path.insert(1, path)
-del path
-
-import telebot
+# import os
+# import sys
+# path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
+# if not path in sys.path:
+#     sys.path.insert(1, path)
+# del path
 
 from agaunibot.botapp import BotApp
 from agaunibot.config import Config
@@ -36,4 +34,5 @@ for device_alias in my_bot.devices:
     mess_txt += dev_model.get_info_message()
     mess_txt += "---------------\n"
 
+mess_txt="test"
 bot.send_message(config.get_config()["telegram"]["channels"]["domchat"], text=mess_txt)
