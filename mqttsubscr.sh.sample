@@ -9,4 +9,4 @@ params="$@"
 
 # Запускаем python3 скрипт с полученными параметрами
 source ./venv/bin/activate
-python3 bot/umdom/mqttsubscr.py $params
+python3 mqttsubscr.py $params

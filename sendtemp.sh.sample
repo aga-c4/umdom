@@ -9,4 +9,4 @@ params="$@"
 
 # Запускаем python3 скрипт с полученными параметрами
 source ./venv/bin/activate
-python3 bots/umdom/sendtemp.py $params
+python3 sendtemp.py $params
