@@ -19,4 +19,5 @@ venv/
 /app/models/user
 /resources/user
 /locale
-
+/tmp
+/logs
