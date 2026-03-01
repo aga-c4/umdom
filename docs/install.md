@@ -1,6 +1,18 @@
-**Установка элементов бота умного дома**
+# Установка элементов бота умного дома
 ---
-<u>Установка Zigbee2MQTT</u>
+
+## Запуск бота ##  
+После установки zigbee2mqtt мы можем перенаправлять даные из Zigbee в MQTT и обратно.
+Бот работает с очередями MQTT и напрямую с устройствами, досупными по HTTP/S протоколам.  
+Бота можно запускать под докером, для этого из корня выполните:
+```
+docker-compose up
+```
+Если вы будете использовать устройства Zigbee, то Zigbee2MQTT вам приедтся установить самостоятельно.
+Это связано с тем, что Zigbee2MQTT настраивается для работы с вашим Zigbee коммутатором.
+
+## Установка Zigbee2MQTT ##    
+---
 https://www.zigbee2mqtt.io/guide/installation/01_linux.html#optional-running-as-a-daemon-with-systemctl
 
 ```
@@ -21,7 +33,7 @@ node --version  # Should output V20.x, V22.X
 pnpm --version  # Should output 10.X
 ```
 
-для устранения ошибки с сертификатом при установке может помочь:
+для устранения ошибки с сертификатом при установке может помочь:   
 request to https://registry.npmjs.org/pnpm failed, reason: unable to get local issuer certificate
 ```
 npm config set strict-ssl false
@@ -63,48 +75,45 @@ usb 1-3
 ```
 dmesg | grep attached
 ```
-Устройство нашлось тут:
-usb 1-3: cp210x converter now attached to ttyUSB0
+Устройство нашлось тут:   
+usb 1-3: cp210x converter now attached to ttyUSB0   
 Итого нашли: /dev/ttyUSB0
 
-На расбери
-usb 1-1.4: Product: Sonoff Zigbee 3.0 USB Dongle Plus V2
-Итого нашли: /dev/ttyUSB0
+На расбери    
+usb 1-1.4: Product: Sonoff Zigbee 3.0 USB Dongle Plus V2   
+Итого нашли: /dev/ttyUSB0   
 
-Идем на http://localhost:8080/
-заполняем начальную конфигурацию, применяем.
+Идем на http://localhost:8080/   
+заполняем начальную конфигурацию, применяем.   
 
-Перезапускаем.
-В итоге ошибка:
+Перезапускаем.   
+В итоге ошибка:   
 error: 	z2m: Error: Adapter EZSP protocol version (8) is not supported by Host [13-16].
 
 Для запуска Zigbee2MQTT:
 ```
 pnpm start
 ```
-Как настроить запуск сервиса написано тут:
+Как настроить запуск сервиса написано тут:   
 https://www.zigbee2mqtt.io/guide/installation/01_linux.html#optional-running-as-a-daemon-with-systemctl
 
 
-Походу придется прошивать адаптер
-моя прошивка тут:
+Походу придется прошивать адаптер  
+моя прошивка тут:  
 https://github.com/itead/Sonoff_Zigbee_Dongle_Firmware/blob/master/Dongle-E/NCP_7.4.4/README.md
-Для прошивки идем на сайт
-https://darkxst.github.io/silabs-firmware-builder/
-выбираем свое устройство. подключаемся, выбираем порт. Я просто обновил прошивку, можно свою залить.
-Ошибка с EZSP ушла.
+Для прошивки идем на сайт   
+https://darkxst.github.io/silabs-firmware-builder/   
+выбираем свое устройство. подключаемся, выбираем порт. Я просто обновил прошивку, можно свою залить.   
+Ошибка с EZSP ушла.   
 
 
-
-Бота можно запускать под докером, для этого из корня выполните:
-```
-docker-compose up
-```
-
+## Если решили настоить не пользоваться Docker ##  
+---
 Есть вариант установить на компьютер отдельно все требуемые сервисы. 
 Подробнее об этом вым можете прочитать ниже.
 
-<u>Ставим аналог Redis</u>
+## Ставим аналог Redis ##    
+---
 Докер образ качаем тут: https://hub.docker.com/r/eqalpha/keydb
 ```
 $ echo "deb https://download.keydb.dev/open-source-dist $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/keydb.list
@@ -113,9 +122,10 @@ $ sudo apt update
 $ sudo apt install keydb
 ```
 
-<u>Установка  MQTT брокера.</u> 
-Ставить будем Mosquitto. Докер образ качаем тут: https://hub.docker.com/_/eclipse-mosquitto
-Немного инфы по настройке тут: https://github.com/HUNY-Blog/CheatSheet-MQTT-Eclipse-Mosquitto?ysclid=mm7tth2q37860735893
+## Установка  MQTT брокера. ##
+---
+Ставить будем Mosquitto. Докер образ качаем тут: https://hub.docker.com/_/eclipse-mosquitto   
+Немного инфы по настройке тут: https://github.com/HUNY-Blog/CheatSheet-MQTT-Eclipse-Mosquitto?ysclid=mm7tth2q37860735893   
 Если будете запускать под докером, то изначально работа без пароля. порты закрыты, вы можете это изменить.
 ```
 sudo apt install mosquitto mosquitto-clients -y
@@ -125,7 +135,7 @@ sudo apt install mosquitto mosquitto-clients -y
 sudo mosquitto_passwd -c /etc/mosquitto/passwd LOGIN
 ```
 
-Связка логин-пароль будет храниться по следующему пути /etc/mosquitto/passwd
+Связка логин-пароль будет храниться по следующему пути /etc/mosquitto/passwd   
 Запретим анонимные подключения к Mosquitto. Открываем файл default.conf:
 ```
 sudo nano /etc/mosquitto/conf.d/default.conf
@@ -203,6 +213,8 @@ retain: true
 сохранение состояния. К примеру датчик движения с датчиком освещенности, чтоб после перезагрузки сразу было корректное значение по свету.
 
 
+## Разное полезное ##
+---
 В проекте Python (только для разработки):
 ```
 pip3 install keydb-python
@@ -211,8 +223,9 @@ pip3 install keydb-python
 ```
 pip install redis
 ```
-Для базового функционала по идее должно и так сработать.
-Установим клиент для работы с MQTT
+Для базового функционала по идее должно и так сработать.  
+
+Клиент для работы с MQTT
 ```
 pip3 install paho-mqtt
 ```
