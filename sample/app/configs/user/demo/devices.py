@@ -8,11 +8,11 @@ class devices:
                 "name": "Дом",
                 "access": {"view": "user"},
                 "list": {
-                    "flow1": {
+                    "home-flow1": {
                         "name": "Этаж-1",
                         "access": {"view": "user"},
                     },
-                    "flow2": {
+                    "home-flow2": {
                         "name": "Этаж-2",
                         "access": {"view": "user"},
                     }
@@ -24,7 +24,7 @@ class devices:
             },
         },
         "devices": {
-            "Yard_LT": {
+            "Yard_LT": { # Устройство Zigbee кнопка света
                 "name": "Двор свет SW",
                 "model": "ZigbeeDevice",
                 "info_mini_list": ["state","voltage"],
@@ -50,7 +50,7 @@ class devices:
                     },
                 }    
             },
-            "Yard_Motion": {
+            "Yard_Motion": { # Устройство Zigbee датчик движения
                 "name": "Гост. Движ",
                 "model": "ZigbeeDevice",
                 "info_mini_list": ["battery", "illuminance", "occupancy", "sensitivity"],
@@ -61,7 +61,7 @@ class devices:
                 "location": "ogorod",
                 "vals": ["illuminance"]
             },
-            "Main_Vhod_LT": {
+            "Main_Vhod_LT": { # Устройство Zigbee кнопка света двойная
                 "name": "Осн. Вход LT",
                 "model": "ZigbeeDevice",
                 "info_mini_list": ["state_left", "state_right"],
@@ -87,7 +87,7 @@ class devices:
                     }
                 }
             },
-            "Yard_T": {
+            "Yard_T": { # Устройство Zigbee датчик температуры
                 "name": "Улица Т",
                 "model": "ZigbeeDevice",
                 "info_mini_list": ["battery", "temperature","humidity"],
@@ -98,18 +98,7 @@ class devices:
                 "location": "ogorod",
                 "vals": ["temperature","humidity"]
             },
-            "Main_Bedroom1_T": {
-                "name": "Осн. Спальня1 Т",
-                "model": "ZigbeeDevice",
-                "info_mini_list": ["battery", "temperature","humidity"],
-                "send": True,
-                "auto_mode": False,
-                "save_log": True,
-                "access": {"view": "user"},
-                "location": "home-flow1",
-                "vals": ["temperature","humidity"]
-            },
-            "termobot4": {
+            "termobot4": { # WiFi Устройство датчик температуры (termobot)
                 "name": "Гост. ком1",
                 "type": "sensor",
                 "model": "Termobot",
@@ -119,7 +108,7 @@ class devices:
                 "access": {"view": "user", "manage":"manage", "update":"admin"}, 
                 "vals": ["temperature"],
             },
-            "tasmota1": {
+            "tasmota1": { # WiFi Устройство реле (tasmota)
                 "name": "Гост. ком1 SW",
                 "model": "TasmotaSW",
                 "send": True,
@@ -143,7 +132,7 @@ class devices:
                     },
                 }
             },
-            "refoss1": {
+            "refoss1": { # WiFi родетка refoss
                 "name": "Гост. SW2",
                 "model": "RefossSW",
                 "url": "http://192.168.1.144",
@@ -168,7 +157,33 @@ class devices:
                     },
                 }
             },
-            "vcam1": {
+            "dim1": { # Устройство Zigbee регулировка интенсивности света
+                "name": "Гост. dim1",
+                "model": "ZigbeeDevice",
+                "info_mini_list": ["state", "brightness"],
+                "send": True,
+                "auto_mode": True,
+                "access": {"view": "user", "manage":"manage", "update":"admin"}, 
+                "location": "guest-flow1",
+                "vals": {"state"},
+                "commands": {
+                    "on": {
+                        "line": 1,
+                        "name": "Вкл",
+                        "command": "set",
+                        "command_params": {"state": "ON"},
+                        "sleep": 0.3
+                    },
+                    "off": {
+                        "line": 1,
+                        "name": "Выкл",
+                        "command": "set",
+                        "command_params": {"state": "OFF"},
+                        "sleep": 0.3
+                    },
+                }    
+            },
+            "vcam1": { # Видеокамера с возможностью управления по http (D-Link)
                 "name": "Двор",
                 "model": "VcamUni",
                 "videocam": True,
@@ -344,123 +359,3 @@ class devices:
             }    
         ]
     }    
-
-
-
-
-    """
-    "termobot4": {
-        "name": "Гост. ком1",
-        "type": "sensor",
-        "model": "Termobot",
-        "url": "http://192.168.1.113",
-        "send": True,
-        "location": "guest-flow1",
-        "access": {"view": "user", "manage":"manage", "update":"admin"}, 
-        "vals": ["temperature"],
-    },
-    "termobot1": {
-        "name": "Улица",
-        "model": "Termobot",
-        "url": "http://192.168.1.103",
-        "send": True,
-        "save_log": True,
-        "access": {"view": "user"},
-        "location": "home-flow1",
-        "vals": ["temperature"],
-    },
-    "termobot2": {
-        "name": "Осн. сан1",
-        "model": "Termobot",
-        "url": "http://192.168.1.49",
-        "send": True,
-        "save_log": True,
-        "access": {"view": "user"},
-        "location": "home-flow1",
-        "vals": ["temperature"],
-    },  
-    "termobot3": {
-        "name": "Термо Контейнер",
-        "model": "Termobot",
-        "url": "http://192.168.1.83",
-        "send": True,
-        "access": {"view": "user"},
-        "location": "ogorod",
-        "vals": ["temperature"],
-    }, 
-    "tasmota1": {
-        "name": "Гост. ком1 SW",
-        "model": "TasmotaSW",
-        "send": True,
-        "auto_mode": True,
-        "url": "http://192.168.1.108",
-        "access": {"view": "user", "manage":"manage", "update":"admin"}, 
-        "location": "guest-flow1",
-        "vals": ["state"],
-        "commands": {
-            "on": {
-                "line": 1,
-                "name": "Вкл",
-                "command": "set",
-                "command_params": {"state": "ON"}
-            },
-            "off": {
-                "line": 1,
-                "name": "Выкл",
-                "command": "set",
-                "command_params": {"state": "OFF"}
-            },
-        }
-    },
-    "dim1": {
-        "name": "Гост. dim1",
-        "model": "ZigbeeDevice",
-        "info_mini_list": ["state", "brightness"],
-        "send": True,
-        "auto_mode": True,
-        "access": {"view": "user", "manage":"manage", "update":"admin"}, 
-        "location": "guest-flow1",
-        "vals": {"state"},
-        "commands": {
-            "on": {
-                "line": 1,
-                "name": "Вкл",
-                "command": "set",
-                "command_params": {"state": "ON"},
-                "sleep": 0.3
-            },
-            "off": {
-                "line": 1,
-                "name": "Выкл",
-                "command": "set",
-                "command_params": {"state": "OFF"},
-                "sleep": 0.3
-            },
-        }    
-    },
-    "refoss1": {
-        "name": "Гост. SW2",
-        "model": "RefossSW",
-        "url": "http://192.168.1.144",
-        "send": True,
-        "location": "guest-flow1",
-        "access": {"view": "user", "manage":"manage", "update":"admin"}, 
-        "auto_mode": True,
-        "max_exec_sec": 1 * 60 * 60, # максимальное время работы в сек. 0 - без ограничения
-        "vals": ["state"],
-        "commands": {
-            "on": {
-                "line": 1,
-                "name": "Вкл",
-                "command": "set",
-                "command_params": {"state": "ON"}
-            },
-            "off": {
-                "line": 1,
-                "name": "Выкл",
-                "command": "set",
-                "command_params": {"state": "OFF"}
-            },
-        }
-    },
-    """    
