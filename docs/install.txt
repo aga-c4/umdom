@@ -76,12 +76,12 @@ https://darkxst.github.io/silabs-firmware-builder/
 выбираем свое устройство. подключаемся, выбираем порт. Я просто обновил прошивку, можно свою залить.
 Ошибка с EZSP ушла.
 
+
 Теперь нам надо поставить MQTT брокер. Ставить будем Mosquitto
 sudo apt install mosquitto mosquitto-clients -y
 
-Сразу настроим для  Mosquitto подписку по логину и паролю (пример логина - pikabu):
+Сразу настроим для  Mosquitto подписку по логину и паролю (пример логина - LOGIN/PASSWORD):
 sudo mosquitto_passwd -c /etc/mosquitto/passwd LOGIN
-LOGIN/PASSWORD
 
 Связка логин-пароль будет храниться по следующему пути /etc/mosquitto/passwd
 Запретим анонимные подключения к Mosquitto. Открываем файл default.conf:
@@ -95,7 +95,7 @@ sudo systemctl restart mosquitto
 
 Для проверки
 mosquitto_sub -h localhost -t "test" -u "LOGIN" -P "PASSWORD" 
-mosquitto_pub -h localhost -t "test" -m "Privet Pikabu" -u "LOGIN" -P "PASSWORD" 
+mosquitto_pub -h localhost -t "test" -m "Privet Mosquito!" -u "LOGIN" -P "PASSWORD" 
 
 Для включения режима поиска устройств зигби:
 https://www.zigbee2mqtt.io/guide/usage/pairing_devices.html#mqtt
