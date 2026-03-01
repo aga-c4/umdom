@@ -15,17 +15,24 @@ import logging
 import paho.mqtt.client as mqtt
 import json
 
-from config import custom, defaultbot
-from models.config import Config
-from models.mybot import MyBot
-from models.botсache import BotCache
-from bots.umdom.models.botdevice import BotDevice
+from agaunibot.botapp import BotApp
+from agaunibot.config import Config
+from agaunibot.mybot import MyBot
+from agaunibot.botcache import BotCache
+from app.models.botdevice import BotDevice
 
 logging.basicConfig(level=logging.INFO)
 
+params = BotApp.get_console_commands()
+action = params.get("action", "")       
+custom = params.get("custom", "")    
+defconfig = params.get("defconfig", "default")
+print(f"Try to run bot with custom {custom}") 
+
 conf_obj = Config(custom=custom, 
-                defaultbot=defaultbot, 
-                allow_configs=["main", "botstru", "devices"]) 
+                  defconfig=defconfig, 
+                  allow_configs=["main", "botstru", "devices"]) 
+
 config = conf_obj.get_config("main")
 my_bot = MyBot(conf_obj)
 devicecache_conf = config.get("system",{}).get("devicecache", {})

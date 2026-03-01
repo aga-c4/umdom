@@ -13,14 +13,20 @@ del path
 
 import telebot
 
-from config import custom, defaultbot
-from models.config import Config
-from bots.umdom.models.botdevice import BotDevice
-from models.mybot import MyBot
+from agaunibot.botapp import BotApp
+from agaunibot.config import Config
+from app.models.botdevice import BotDevice
+from agaunibot.mybot import MyBot
+
+params = BotApp.get_console_commands()
+action = params.get("action", "")       
+custom = params.get("custom", "")    
+defconfig = params.get("defconfig", "default")
+print(f"Try to run bot with custom {custom}") 
 
 config = Config(custom=custom, 
-                defaultbot=defaultbot, 
-                allow_configs=["main", "botstru", "devices"]) 
+                  defconfig=defconfig, 
+                  allow_configs=["main", "botstru", "devices"]) 
 my_bot = MyBot(config)
 
 bot = telebot.TeleBot(config.get_config()["telegram"]["api_token"])
