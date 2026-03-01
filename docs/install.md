@@ -1,5 +1,4 @@
 # Установка элементов бота умного дома
----
 ## Подготовка к первому запуску ##
 1. Копируем или делаем по аналогии sample в корень проекта, поправляем конфиги, скрипты запуска и остальное.  
 Папки user нужны для размещения своих контроллеров, моделей и конфигов. Структура и наполнение папки sample
@@ -26,7 +25,6 @@ docker-compose up
 - keydb (аналог Redis) - в нем содержатся текущие состояния устройств, изменяемые скриптом mqttsubscr.sh
 
 ## Запуск бота ##  
----
 Бот работает с очередями MQTT и напрямую с устройствами, досупными по HTTP/S протоколам.
 После установки zigbee2mqtt мы можем перенаправлять даные из Zigbee в MQTT и обратно.  
 Бота можно запускать под докером, для этого из корня выполните:
@@ -37,7 +35,6 @@ docker-compose up
 Это связано с тем, что Zigbee2MQTT настраивается для работы с вашим Zigbee коммутатором.
 
 ## Установка Zigbee2MQTT ##    
----
 https://www.zigbee2mqtt.io/guide/installation/01_linux.html#optional-running-as-a-daemon-with-systemctl
 
 ```
@@ -133,12 +130,10 @@ https://darkxst.github.io/silabs-firmware-builder/
 
 
 ## Если решили настоить не пользоваться Docker ##  
----
 Есть вариант установить на компьютер отдельно все требуемые сервисы. 
 Подробнее об этом вым можете прочитать ниже.
 
 ## Ставим аналог Redis ##    
----
 Докер образ качаем тут: https://hub.docker.com/r/eqalpha/keydb
 ```
 $ echo "deb https://download.keydb.dev/open-source-dist $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/keydb.list
@@ -148,7 +143,6 @@ $ sudo apt install keydb
 ```
 
 ## Установка  MQTT брокера. ##
----
 Ставить будем Mosquitto. Докер образ качаем тут: https://hub.docker.com/_/eclipse-mosquitto   
 Немного инфы по настройке тут: https://github.com/HUNY-Blog/CheatSheet-MQTT-Eclipse-Mosquitto?ysclid=mm7tth2q37860735893   
 Если будете запускать под докером, то изначально работа без пароля. порты закрыты, вы можете это изменить.
@@ -239,7 +233,6 @@ retain: true
 
 
 ## Делаем сервисы для бота и автозапуск ##  
---- 
 Под рутом:  
 1. Добавляем в /etc/systemd/system/umdombot.service
 сервисы бота, брокера, монитора из папки systemd
@@ -260,7 +253,6 @@ systemctl disable umdombot  (выключить сервис)
 ```
 
 ## Разное полезное ##
----
 В проекте Python (только для разработки):
 ```
 pip3 install keydb-python
