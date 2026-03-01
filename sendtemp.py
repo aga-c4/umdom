@@ -11,12 +11,15 @@
 #     sys.path.insert(1, path)
 # del path
 
+import logging
 from time import sleep
 from agaunibot.botapp import BotApp
 from agaunibot.config import Config
 from agaunibot.mybot import MyBot
 from agaunibot.message import Message
 from app.models.botdevice import BotDevice
+
+logging.basicConfig(level=logging.INFO)
 
 params = BotApp.get_console_commands()      
 custom = params.get("custom", "")    
