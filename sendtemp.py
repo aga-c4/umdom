@@ -13,8 +13,9 @@
 
 from agaunibot.botapp import BotApp
 from agaunibot.config import Config
-from app.models.botdevice import BotDevice
 from agaunibot.mybot import MyBot
+from agaunibot.message import Message
+from app.models.botdevice import BotDevice
 
 params = BotApp.get_console_commands()      
 custom = params.get("custom", "")    
@@ -25,8 +26,8 @@ config = Config(custom=custom,
                   defconfig=defconfig, 
                   allow_configs=["main", "botstru", "devices"]) 
 my_bot = MyBot(config)
+message = Message(config.get_config("main") ) 
 
-bot = telebot.TeleBot(config.get_config()["telegram"]["api_token"])
 mess_txt = config.get_config()["bot"]["name"]+":\n"
 mess_txt += "---------------\n"
 for device_alias in my_bot.devices:
@@ -34,5 +35,5 @@ for device_alias in my_bot.devices:
     mess_txt += dev_model.get_info_message()
     mess_txt += "---------------\n"
 
-mess_txt="test"
-bot.send_message(config.get_config()["telegram"]["channels"]["domchat"], text=mess_txt)
+message.send(config.get_config()["telegram"]["channels"]["domchat"], text=mess_txt)   
+
