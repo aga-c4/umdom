@@ -14,13 +14,13 @@ sudo apt install -y nodejs
 sudo apt install gcc g++ make -y
 npm install -g pnpm
 
-# Verify that the correct nodejs and pnpm version has been installed
+Verify that the correct nodejs and pnpm version has been installed
 node --version  # Should output V20.x, V22.X
 pnpm --version  # Should output 10.X
 
 для устранения ошибки с сертификатом при установке может помочь:
 request to https://registry.npmjs.org/pnpm failed, reason: unable to get local issuer certificate
-# npm config set strict-ssl false
+npm config set strict-ssl false
 
 Если надо поставить Yarn:
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
