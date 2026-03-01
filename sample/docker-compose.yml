@@ -3,18 +3,62 @@ version: '2'
 # Список наших сервисов (контейнеров)
 services:
 
-  pybot:
+  umdombot:
     build: ./
-    container_name: pybot
-    hostname: pybot
-    restart: unless-stopped
+    container_name: umdombot
+    hostname: umdombot
+    domainname: dev.lan
     volumes:
       - ./:/usr/src/app
     networks:
       - my-net 
     command: python bot.py start --custom demo --log_level INFO 
-    # depends_on:
-    #   - mysql 
+    depends_on:
+      - keydb 
+      - mqttsubscr
+    restart: unless-stopped  
+
+  mqttsubscr:
+    build: ./
+    container_name: mqttsubscr
+    hostname: mqttsubscr
+    domainname: dev.lan
+    volumes:
+      - ./:/usr/src/app
+    networks:
+      - my-net 
+    command: python mqttsubscr.py --custom demo --log_level INFO 
+    depends_on:
+      - keydb  
+    restart: unless-stopped   
+
+  keydb:
+    image: eqalpha/keydb
+    container_name: keydb
+    networks:
+      - my-net
+    hostname: keydb
+    domainname: dev.lan
+    volumes:
+      - ./volumes/keydb/data:/data
+    # Включаем для записи на диск, место можно замонтировать в /volumes/keydb/data  
+    command: keydb-server /etc/keydb/keydb.conf --appendonly yes  
+    restart: unless-stopped
+
+  mqtt:
+    image: eclipse-mosquitto
+    container_name: mqtt
+    # ports:
+    #   - "127.0.0.1:1883:1883"
+    networks:
+      - my-net
+    hostname: mqtt
+    domainname: dev.lan
+    volumes:
+      # - ./volumes/mosquitto/config:/mosquitto/config
+      - ./volumes/mosquitto/data:/mosquitto/data
+      - ./volumes/mosquitto/log:/mosquitto/log
+    restart: unless-stopped  
 
   # mysql:
   #   image: mysql:8

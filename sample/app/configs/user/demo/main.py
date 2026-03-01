@@ -6,22 +6,33 @@ class main:
             "telegram_admin_ids": ["000000000"], 
             # Настройка кеширование устройств
             "devicecache": {
-                "host": "127.0.0.1", 
                 "port": 6379,
-                "db": 0
+                "db": 0,
+
+                # Прямой адрес
+                # "host": "127.0.0.1",
+                # Вариант для докера
+                "host": "keydb"
             },
             # Параметры MQTT брокера
             "mqtt": {
-                "username": "LOGIN", 
-                "password": "PASSWORD",
-                "host": "127.0.0.1", 
                 "port": 1883,
-                "qos": 1
+                "qos": 1,
+
+                # Прямой адрес
+                # "host": "127.0.0.1",
+                # "username": "LOGIN", 
+                # "password": "PASSWORD",
+
+                # Вариант для докера
+                "host": "mqtt",
+                "username": "agac4", 
+                "password": ""
             }
         },
         "bot": {
             # Название бота, будет присутствовать в сообщениях
-            "name": "Дача",
+            "name": "Demo",
         },
         # Параметры для публикации сообщений в канал рассылки в Телеграм
         "telegram": {
