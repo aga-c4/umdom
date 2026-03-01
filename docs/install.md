@@ -3,7 +3,7 @@
 Установка Zigbee2MQTT
 https://www.zigbee2mqtt.io/guide/installation/01_linux.html#optional-running-as-a-daemon-with-systemctl
 
-
+```
 sudo apt update
 sudo apt install -y ca-certificates curl gnupg
 sudo mkdir -p /etc/apt/keyrings
@@ -13,41 +13,56 @@ sudo apt update
 sudo apt install -y nodejs
 sudo apt install gcc g++ make -y
 npm install -g pnpm
+```
 
 Verify that the correct nodejs and pnpm version has been installed
+```
 node --version  # Should output V20.x, V22.X
 pnpm --version  # Should output 10.X
+```
 
 для устранения ошибки с сертификатом при установке может помочь:
 request to https://registry.npmjs.org/pnpm failed, reason: unable to get local issuer certificate
+```
 npm config set strict-ssl false
+```
 
 Если надо поставить Yarn:
+```
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
 echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt update && sudo apt-get install yarn -y
-
+```
 
 Мой адаптер Zigbee 3.0 Стик SONOFF USB Dongle Plus-E (Координатор)
 https://www.zigbee2mqtt.io/guide/adapters/emberznet.html
 Конфигурация:
+```
 serial:
     adapter: ember
-
+```
 
 Устройство подключено к USB порту, я его нахожу командой:
+```
 lsusb -v
+```
 в выдаче много всего, среди прочего "Sonoff Zigbee 3.0 USB Dongle Plus V2"
 Bus 001 Device 005: ID 10c4:ea60 Silicon Labs CP210x UART Bridge
 Это же показывает и команда:
+```
 lsusb
+```
 
 По итогу вытащил, воткнул, выполнил команду:
+```
 dmesg
+```
 посмотрел лог, увидел
 usb 1-3
 В итоге помогла команда:
+```
 dmesg | grep attached
+```
 Устройство нашлось тут:
 usb 1-3: cp210x converter now attached to ttyUSB0
 Итого нашли: /dev/ttyUSB0
@@ -58,7 +73,6 @@ usb 1-1.4: Product: Sonoff Zigbee 3.0 USB Dongle Plus V2
 
 Идем на http://localhost:8080/
 заполняем начальную конфигурацию, применяем.
-mqtt/xMQTT6LT21e
 
 Перезапускаем.
 В итоге ошибка:
@@ -113,7 +127,7 @@ mosquitto_pub -h localhost -t "zigbee2mqtt/bridge/request/permit_join" -m '{"tim
 [2025-04-23 12:08:59] info: 	z2m:mqtt: MQTT publish: topic 'zigbee2mqtt/bridge/event', payload '{"data":{"definition":{"description":"Luminance motion sensor","exposes":[{"access":1,"description":"Indicates whether the device detected occupancy","label":"Occupancy","name":"occupancy","property":"occupancy","type":"binary","value_off":false,"value_on":true},{"access":1,"description":"Measured illuminance","label":"Illuminance","name":"illuminance","property":"illuminance","type":"numeric","unit":"lx"},{"access":1,"category":"diagnostic","description":"Remaining battery in %, can take up to 24 hours before reported","label":"Battery","name":"battery","property":"battery","type":"numeric","unit":"%","value_max":100,"value_min":0},{"access":3,"description":"PIR sensor sensitivity (refresh and update only while active)","label":"Sensitivity","name":"sensitivity","property":"sensitivity","type":"enum","values":["low","medium","high"]},{"access":3,"description":"PIR keep time in seconds (refresh and update only while active)","label":"Keep time","name":"keep_time","property":"keep_time","type":"enum","values":["10","30","60","120"]},{"access":3,"description":"Brightness acquisition interval (refresh and update only while active)","label":"Illuminance interval","name":"illuminance_interval","property":"illuminance_interval","type":"numeric","unit":"minutes","value_max":720,"value_min":1,"value_step":1},{"access":1,"category":"diagnostic","description":"Link quality (signal strength)","label":"Linkquality","name":"linkquality","property":"linkquality","type":"numeric","unit":"lqi","value_max":255,"value_min":0}],"model":"ZG-204ZL","options":[{"access":2,"description":"Calibrates the illuminance value (percentual offset), takes into effect on next report of device.","label":"Illuminance calibration","name":"illuminance_calibration","property":"illuminance_calibration","type":"numeric"}],"supports_ota":false,"vendor":"Tuya"},"friendly_name":"0xa4c138359de09f0d","ieee_address":"0xa4c138359de09f0d","status":"successful","supported":true},"type":"device_interview"}'
 
 Включение розетки
-mosquitto_pub -h localhost -t "zigbee2mqtt/sw1/set" -m '{ "state": "ON" }' -u "LOGIN" -P "PASSWORD"
+mosquitto_pub -h localhost -t "zigbee2mqtt/sw1/set" -m '{ "state": "ON" }' -u "c"
 mosquitto_pub -h localhost -t "zigbee2mqtt/sw1/set" -m '{ "state": "OFF" }' -u "LOGIN" -P "PASSWORD"
 mosquitto_pub -h localhost -t "zigbee2mqtt/sw1/set" -m '{ "state": "TOGGLE" }' -u "LOGIN" -P "PASSWORD"
 
