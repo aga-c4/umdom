@@ -18,8 +18,7 @@ from agaunibot.config import Config
 from app.models.botdevice import BotDevice
 from agaunibot.mybot import MyBot
 
-params = BotApp.get_console_commands()
-action = params.get("action", "")       
+params = BotApp.get_console_commands()      
 custom = params.get("custom", "")    
 defconfig = params.get("defconfig", "default")
 print(f"Try to run bot with custom {custom}") 
