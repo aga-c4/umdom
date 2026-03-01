@@ -1,5 +1,5 @@
 **Установка элементов бота умного дома**
-
+---
 Установка Zigbee2MQTT
 https://www.zigbee2mqtt.io/guide/installation/01_linux.html#optional-running-as-a-daemon-with-systemctl
 
