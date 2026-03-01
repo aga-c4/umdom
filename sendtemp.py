@@ -38,5 +38,5 @@ for device_alias in my_bot.devices:
     mess_txt += dev_model.get_info_message()
     mess_txt += "---------------\n"
     message.send(config.get_config()["telegram"]["channels"]["domchat"], text=mess_txt)   
-    sleep(1)  
+    sleep(2)  
 
