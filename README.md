@@ -2,9 +2,10 @@
 ---
 Система позволяет отслеживать очередь MQTT и управлять устройствами умного дома. Есть возможность подключения большинства устройств Zigbee
 с использование Zigbee2MQTT. Управление ботом ведется чере мессенджеры, в частности через Telegram.
-Подробнее про установку вы можете прочитать [docs/install.md](docs/install.md).
+Подробнее про установку вы можете прочитать тут: [docs/install.md](docs/install.md).
 
-**Элементы управления ботом**
+## Элементы управления ботом ##
+---
 Файлы бота находятся в папке app. Есть возможность использовать разные конфиги для работы бота. Какой код бота будет использован определяется параметром bot_controllers_prefix и bot_models_prefix конфига main.py из папки конфигов запускаемого бота. Какой конфиг будет использован при запуске определяется параметром custom, позволяющим делать несколько вариантов одного конфига для бота.
 
 Конфиги бота находятся в папке app/configs. Default конфиг определяет все основные параметры и переопределяется custom конфигом.
@@ -24,45 +25,43 @@
 
 Анализатор текстов можно подключить в конфиге в секции "bot" (analyse_text_controller), посмотрите как это сделано в демо конфиге.
 
+## Всякое полезное ##
+---
+Ассинхронный бот  
+https://www.pvsm.ru/python/373024?ysclid=m8x3pp5r9z484916280  
+https://docs-python.ru/packages/biblioteka-python-telegram-bot-python/perekhod-versiiu-20/   
+https://s5.hpc.name/thread/t580/76186/ispolzovanie-potokov-i-asinhronnosti-dlya-bota-v-telegram-na-python.html  
 
-**Всякое полезное**
-
-Ассинхронный бот:
-https://www.pvsm.ru/python/373024?ysclid=m8x3pp5r9z484916280
-https://docs-python.ru/packages/biblioteka-python-telegram-bot-python/perekhod-versiiu-20/ 
-https://s5.hpc.name/thread/t580/76186/ispolzovanie-potokov-i-asinhronnosti-dlya-bota-v-telegram-na-python.html
-
-Мажордомо
+Мажордомо  
 https://www.youtube.com/watch?v=4O-2dJwRQtg
 
-Статья про зигби
-https://www.youtube.com/watch?v=cyxcQS441tc 
-https://habr.com/ru/articles/854878/ 
-https://alice.yandex.ru/support/ru/smart-home/how-work/zigbee
-https://habr.com/ru/articles/503494/ (шлюзы - разработки)
+Статья про зигби  
+https://www.youtube.com/watch?v=cyxcQS441tc   
+https://habr.com/ru/articles/854878/  
+https://alice.yandex.ru/support/ru/smart-home/how-work/zigbee   
+https://habr.com/ru/articles/503494/ (шлюзы - разработки)  
 
-Zigbee2MQTT
-https://www.zigbee2mqtt.io/guide/getting-started/#onboarding
-https://www.zigbee2mqtt.io/guide/adapters/emberznet.html
-https://www.zigbee2mqtt.io/supported-devices/#v=SONOFF
+Zigbee2MQTT  
+https://www.zigbee2mqtt.io/guide/getting-started/#onboarding  
+https://www.zigbee2mqtt.io/guide/adapters/emberznet.html  
+https://www.zigbee2mqtt.io/supported-devices/#v=SONOFF  
 
-Работаем с Zigbee-устройствами через Zigbee2mqtt и Node-RED
+Работаем с Zigbee-устройствами через Zigbee2mqtt и Node-RED  
 https://habr.com/ru/companies/wirenboard/articles/713274/ 
 
-MQTT
-https://habr.com/ru/articles/463669/
-https://pikabu.ru/story/besplatnyiy_i_lichnyiy_mqtt_broker_mosquitto_dlya_iotustroystv_na_bazeubuntu_2004_na_always_free_vps_serverot_oracle_7982336 
+MQTT  
+https://habr.com/ru/articles/463669/  
+https://pikabu.ru/story/besplatnyiy_i_lichnyiy_mqtt_broker_mosquitto_dlya_iotustroystv_na_bazeubuntu_2004_na_always_free_vps_serverot_oracle_7982336   
 
-ESP8266 MQTT client using pubsubclient library and mosquitto MQTT broker
-https://rutube.ru/video/33307e9b0bc103195bd0f5a63263eb08/
-Фласк:
-https://habr.com/ru/articles/346306/
-
-
-Передача видео с IP-камер D-Link !!!!!!!!
-http://flance.onego.ru/2008/05/22/13
+ESP8266 MQTT client using pubsubclient library and mosquitto MQTT broker  
+https://rutube.ru/video/33307e9b0bc103195bd0f5a63263eb08/  
+Фласк:  
+https://habr.com/ru/articles/346306/  
 
 
-Telegram bot API - разбор документации с примерами
-https://infostart.ru/1c/articles/1217332/
+Передача видео с IP-камер D-Link !!!!!!!!  
+http://flance.onego.ru/2008/05/22/13  
 
+
+Telegram bot API - разбор документации с примерами  
+https://infostart.ru/1c/articles/1217332/  
