@@ -30,10 +30,11 @@ message = Message(config.get_config("main") )
 
 mess_txt = config.get_config()["bot"]["name"]+":\n"
 mess_txt += "---------------\n"
+message.send(config.get_config()["telegram"]["channels"]["domchat"], text=mess_txt)  
 for device_alias in my_bot.devices:
+    mess_txt = ""
     dev_model = BotDevice(my_bot, my_bot.devices, device_alias)
     mess_txt += dev_model.get_info_message()
     mess_txt += "---------------\n"
-
-message.send(config.get_config()["telegram"]["channels"]["domchat"], text=mess_txt)   
+    message.send(config.get_config()["telegram"]["channels"]["domchat"], text=mess_txt)   
 
