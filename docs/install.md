@@ -1,6 +1,6 @@
 **Установка элементов бота умного дома**
 ---
-Установка Zigbee2MQTT
+<u>Установка Zigbee2MQTT</u>
 https://www.zigbee2mqtt.io/guide/installation/01_linux.html#optional-running-as-a-daemon-with-systemctl
 
 ```
@@ -95,7 +95,28 @@ https://darkxst.github.io/silabs-firmware-builder/
 Ошибка с EZSP ушла.
 
 
-Теперь нам надо поставить MQTT брокер. Ставить будем Mosquitto
+
+Бота можно запускать под докером, для этого из корня выполните:
+```
+docker-compose up
+```
+
+Есть вариант установить на компьютер отдельно все требуемые сервисы. 
+Подробнее об этом вым можете прочитать ниже.
+
+<u>Ставим аналог Redis</u>
+Докер образ качаем тут: https://hub.docker.com/r/eqalpha/keydb
+```
+$ echo "deb https://download.keydb.dev/open-source-dist $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/keydb.list
+$ sudo wget  --no-check-certificate -O /etc/apt/trusted.gpg.d/keydb.gpg https://download.keydb.dev/open-source-dist/keyring.gpg
+$ sudo apt update
+$ sudo apt install keydb
+```
+
+<u>Установка  MQTT брокера.</u> 
+Ставить будем Mosquitto. Докер образ качаем тут: https://hub.docker.com/_/eclipse-mosquitto
+Немного инфы по настройке тут: https://github.com/HUNY-Blog/CheatSheet-MQTT-Eclipse-Mosquitto?ysclid=mm7tth2q37860735893
+Если будете запускать под докером, то изначально работа без пароля. порты закрыты, вы можете это изменить.
 ```
 sudo apt install mosquitto mosquitto-clients -y
 ```
@@ -125,6 +146,7 @@ sudo systemctl restart mosquitto
 mosquitto_sub -h localhost -t "test" -u "LOGIN" -P "PASSWORD" 
 mosquitto_pub -h localhost -t "test" -m "Privet Mosquito!" -u "LOGIN" -P "PASSWORD" 
 ```
+
 
 Для включения режима поиска устройств зигби:
 https://www.zigbee2mqtt.io/guide/usage/pairing_devices.html#mqtt
@@ -180,14 +202,6 @@ retain: true
 В результате брокер сохранит соощение и после перезагрузки оно будет доступно.  Это можно делать для датчиков, по которым важно такое
 сохранение состояния. К примеру датчик движения с датчиком освещенности, чтоб после перезагрузки сразу было корректное значение по свету.
 
-
-Ставим аналог Redis
-```
-$ echo "deb https://download.keydb.dev/open-source-dist $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/keydb.list
-$ sudo wget  --no-check-certificate -O /etc/apt/trusted.gpg.d/keydb.gpg https://download.keydb.dev/open-source-dist/keyring.gpg
-$ sudo apt update
-$ sudo apt install keydb
-```
 
 В проекте Python (только для разработки):
 ```
