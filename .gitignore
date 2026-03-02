@@ -19,7 +19,7 @@ venv/
 /app/configs/user
 /app/controllers/user
 /app/models/user
-/resources/user
+/app/resources/user
 /locale
 /tmp
 /logs
