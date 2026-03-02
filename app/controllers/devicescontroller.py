@@ -4,15 +4,15 @@ import json
 import os
 from datetime import datetime
 from time import sleep
-from agaunibot.message import Message
 
+from agaunibot.botapp import app
 from app.models.botdevice import BotDevice
 from app.models.botlocation import BotLocation
 
 class DevicesController:
 
     def __init__(self):
-        self.message = Message() 
+        self.message = app.message
 
     def get_info(self, request:Request):
         logging.info(str(request.user.id)+": DevicesController:get_info")

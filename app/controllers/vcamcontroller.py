@@ -1,10 +1,10 @@
 import logging
 import os
 from time import sleep
-from agaunibot.request import Request
-from agaunibot.message import Message
-from agaunibot.sysbf import SysBf
 
+from agaunibot.botapp import app
+from agaunibot.request import Request
+from agaunibot.sysbf import SysBf
 from app.models.botdevice import BotDevice
 
 class VcamController:
@@ -13,7 +13,7 @@ class VcamController:
     rotelist = []
 
     def __init__(self):
-        self.message = Message() 
+        self.message = app.message
 
     def route(self, request:Request):
         """Маршрутизация в рамках контроллера"""

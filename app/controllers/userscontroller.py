@@ -1,13 +1,13 @@
 import logging
 
+from agaunibot.botapp import app
 from agaunibot.request import Request
-from agaunibot.message import Message
 from agaunibot.user import User
 
 class UsersController:
 
     def __init__(self):
-        self.message = Message() 
+        self.message = app.message
     
     def list(self, request:Request):
         logging.info(str(request.user.id)+": UserController:list")

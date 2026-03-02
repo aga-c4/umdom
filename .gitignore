@@ -11,6 +11,7 @@ venv/
 /demobot.service
 /docker-compose.yml
 /bot.sh
+/bot.py
 /mqttsubscr.sh
 /sendtemp.sh
 /app/lang
