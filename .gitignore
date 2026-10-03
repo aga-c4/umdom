@@ -10,14 +10,16 @@ venv/
 .vscode
 /demobot.service
 /docker-compose.yml
+/dockerfile
 /bot.sh
+/bot.py
 /mqttsubscr.sh
 /sendtemp.sh
 /app/lang
 /app/configs/user
 /app/controllers/user
 /app/models/user
-/resources/user
+/app/resources/user
 /locale
 /tmp
 /logs
